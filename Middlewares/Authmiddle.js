@@ -1,29 +1,20 @@
-let express=require("express")
-const app=express();
-require('dotenv').config();
 const JWT = require('jsonwebtoken');
 
+const authmiddleware = (req, res, next) => {
+  const token = req.headers['authorization'];
+  
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided' });
+  }
 
-let myToken=process.env.MY_TOKEN
-
-let CheckToken=(req,res,next)=>{
-    if (req.query.token=="" || req.query.token==undefined){
-        return res.send({
-            status:23,
-            msg:"please fill the token"
-        })
+  JWT.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Failed to authenticate token' });
     }
-
-    if (req.query.token!=myToken){
-        return res.send(
-            {
-                status:200  ,
-                msg:"enter correct token"
-            }
-        )
-    }
+    
+    req.userId = decoded.id;
     next();
+  });
 }
 
-app.use(CheckToken)
-module.exports=CheckToken;
+module.exports = authmiddleware;
