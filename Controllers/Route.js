@@ -1,6 +1,6 @@
 const route = require('express').Router();
 const Middlewares = require('../Middlewares/Authmiddle.js');
-const User = require('../Models/Usermodel.js');
+const User = require('../Models/Studentmodel.js');
 const JWT = require('jsonwebtoken');
 
 

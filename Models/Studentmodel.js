@@ -16,8 +16,16 @@ mongoose.connection.on('error', (err) => {
 
 const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    gender: { type: String, required: true, unique: true },
+    email: { type: String, required: true },
+    mobile: { type: String, required: true },
     password: { type: String, required: true },
+    cpassword: { type: String, required: true },
+    subject: { type: String, required: true },
+    state: { type: String, required: true },
+    city: { type: String, required: true },
+    sclass: { type: String, required: true },
+    language: { type: String, required: true},
 dateTime: String},
 
     { collection: 'User' },
